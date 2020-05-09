@@ -61,6 +61,7 @@ def set_properties(project):
         "Programming Language :: Python :: 3.8",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX",
+        "Operating System :: POSIX :: Linux",
         "Programming Language :: C",
         "Programming Language :: C++",
         "Topic :: Software Development :: Build Tools",

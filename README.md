@@ -134,5 +134,5 @@ TBW
 ## Troubleshooting
 
 1. Printing to `sys.stdout` from the `worker` is dangerous as the stdout is often interpreted by the invoking tool
-which can lead to a crash in the tool expecting certain data format. `print(`debug!`, file=sys.stderr)` is generally 
+which can lead to a crash in the tool expecting certain data format. `print("debug!", file=sys.stderr)` is generally 
 safe.
