@@ -81,7 +81,7 @@ def ctinker_after_tool(env: Dict[str, str], tool: str, tool_args: List[str], wor
 
 It is guaranteed that `ctinker_start` - `ctinker_finish` and `ctinker_before_tool` - `ctinker_after_tool` pairs will 
 be executed in the same process and therefore you can pass values between the start/finish and before/after functions 
-(for example by a global or within the same intance of an object).
+(for example by a global or within the same instance of an object).
 
 ## Help
 
@@ -131,7 +131,7 @@ optional arguments:
 
 TBW
 
-## Troublshooting
+## Troubleshooting
 
 1. Printing to `sys.stdout` from the `worker` is dangerous as the stdout is often interpreted by the invoking tool
 which can lead to a crash in the tool expecting certain data format. `print(`debug!`, file=sys.stderr)` is generally 
