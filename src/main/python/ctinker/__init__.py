@@ -35,7 +35,23 @@ CTINKER_OFF = "__CTINKER_OFF"
 _CTINKER_LINKER_DEFAULT = "__default"
 
 
+def find_tool(tool, env):
+    """Part of the public API"""
+
+    path = env["PATH"]
+    paths = path.split(pathsep)
+    ctinker_path = env[CTINKER_PATH]
+
+    # We need PATH without our shim for real tool execution
+    idx = paths.index(ctinker_path)
+    del paths[idx]
+    tool_path_env = pathsep.join(paths)
+
+    return shutil.which(tool, path=tool_path_env)
+
+
 def tool_executor(command, env):
+    """Part of the public API"""
     return subprocess.Popen(command, env=env, bufsize=0)
 
 
@@ -44,20 +60,6 @@ class CTinkerWorker:
         self.server_addr = server_addr
 
     def run(self):
-        argv = sys.argv
-        ctinker_path = environ[CTINKER_PATH]
-        tool = Path(argv[0]).name
-        path = environ["PATH"]
-        paths = path.split(pathsep)
-
-        # We need PATH without our shim for real tool execution
-        idx = paths.index(ctinker_path)
-        del paths[idx]
-        tool_path_env = pathsep.join(paths)
-
-        tool_path = shutil.which(tool, path=tool_path_env)
-        tool_args = sys.argv[1:]
-
         script_names = {}
         before_tool = None
         after_tool = None
@@ -75,9 +77,15 @@ class CTinkerWorker:
         cwd = Path.cwd()
         work_dir = Path(environ["__CTINKER_WORK_DIR"])
 
+        argv = sys.argv
+        tool = Path(argv[0]).name
+        tool_args = sys.argv[1:]
+
         env = dict(environ.items())
         if before_tool:
             before_tool(env, tool, tool_args, work_dir, cwd)
+
+        tool_path = find_tool(tool, env)
 
         tool_cmd = [tool_path] + tool_args
 

@@ -1,9 +1,17 @@
 # CTinker - C/C++ Project Introspection and Augmentation Tool
 
-**C Tinker**, pronounced _see-tinker_ (or humorously "stinker" as suggested by 
+**C Tinker**, pronounced _see-tinker_ (or humorously "stinker", as suggested by 
 [Chuck Ocheret](https://github.com/ocheret)) allows you to get in the middle of the build process of a 
 make/Ninja-style project and augment the compilation and linking as well as extract and redirect artifacts using 
-policies you can't do otherwise even with LDFLAGS/CFLAGS magic.
+policies you can't implement otherwise even with LDFLAGS/CFLAGS magic.
+
+[![Gitter](https://img.shields.io/gitter/room/karellen/lobby?logo=gitter)](https://gitter.im/karellen/lobby)
+
+[![CTinker Version](https://img.shields.io/pypi/v/ctinker?logo=pypi)](https://pypi.org/project/ctinker/)
+[![CTinker Python Versions](https://img.shields.io/pypi/pyversions/ctinker?logo=pypi)](https://pypi.org/project/ctinker/)
+[![CTinker Downloads Per Day](https://img.shields.io/pypi/dd/ctinker?logo=pypi)](https://pypi.org/project/ctinker/)
+[![CTinker Downloads Per Week](https://img.shields.io/pypi/dw/ctinker?logo=pypi)](https://pypi.org/project/ctinker/)
+[![CTinker Downloads Per Month](https://img.shields.io/pypi/dm/ctinker?logo=pypi)](https://pypi.org/project/ctinker/)
 
 ## Problem
 
@@ -80,8 +88,8 @@ def ctinker_after_tool(env: Dict[str, str], tool: str, tool_args: List[str], wor
 ```
 
 It is guaranteed that `ctinker_start` - `ctinker_finish` and `ctinker_before_tool` - `ctinker_after_tool` pairs will 
-be executed in the same process and therefore you can pass values between the start/finish and before/after functions 
-(for example by a global or within the same instance of an object).
+be executed in the same `supervisor` and `worker` processes _respectively_ and therefore you can pass values between 
+the start/finish and before/after functions (for example by a global or within the same instance of an object).
 
 ## Help
 
